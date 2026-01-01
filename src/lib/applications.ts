@@ -6,10 +6,10 @@ import {
   where,
   Timestamp,
 } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import { getFirestoreInstance } from "@/lib/firebase";
 import { Application } from "@/types/application";
 
-const applicationsRef = collection(db, "applications");
+const getApplicationsRef = () => collection(getFirestoreInstance(), "applications");
 
 export async function applyToProject(
   projectId: string,
@@ -17,7 +17,7 @@ export async function applyToProject(
   studentName: string,
   note: string
 ) {
-  await addDoc(applicationsRef, {
+  await addDoc(getApplicationsRef(), {
     projectId,
     studentId,
     studentName,
@@ -29,7 +29,7 @@ export async function applyToProject(
 export async function getApplicationsForProject(
   projectId: string
 ): Promise<Application[]> {
-  const q = query(applicationsRef, where("projectId", "==", projectId));
+  const q = query(getApplicationsRef(), where("projectId", "==", projectId));
   const snapshot = await getDocs(q);
 
   return snapshot.docs.map((doc) => ({

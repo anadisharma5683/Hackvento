@@ -1,8 +1,8 @@
 import { collection, addDoc, getDocs, Timestamp } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import { getFirestoreInstance } from "@/lib/firebase";
 import { Project } from "@/types/project";
 
-const projectsRef = collection(db, "projects");
+const getProjectsRef = () => collection(getFirestoreInstance(), "projects");
 
 export async function createProject(
   title: string,
@@ -10,7 +10,7 @@ export async function createProject(
   skills: string[],
   userId: string
 ) {
-  await addDoc(projectsRef, {
+  await addDoc(getProjectsRef(), {
     title,
     description,
     skillsRequired: skills,
@@ -20,7 +20,7 @@ export async function createProject(
 }
 
 export async function getProjects(): Promise<Project[]> {
-  const snapshot = await getDocs(projectsRef);
+  const snapshot = await getDocs(getProjectsRef());
   return snapshot.docs.map((doc) => ({
     id: doc.id,
     ...(doc.data() as Omit<Project, "id">),

@@ -6,17 +6,17 @@ import {
   where,
   Timestamp,
 } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import { getFirestoreInstance } from "@/lib/firebase";
 import { Attendance } from "@/types/attendance";
 
-const attendanceRef = collection(db, "attendance");
+const getAttendanceRef = () => collection(getFirestoreInstance(), "attendance");
 
 export async function markAttendance(
   sessionId: string,
   studentId: string,
   studentName: string
 ) {
-  await addDoc(attendanceRef, {
+  await addDoc(getAttendanceRef(), {
     sessionId,
     studentId,
     studentName,
@@ -27,7 +27,7 @@ export async function markAttendance(
 export async function getAttendanceForSession(
   sessionId: string
 ): Promise<Attendance[]> {
-  const q = query(attendanceRef, where("sessionId", "==", sessionId));
+  const q = query(getAttendanceRef(), where("sessionId", "==", sessionId));
   const snapshot = await getDocs(q);
 
   return snapshot.docs.map((doc) => ({

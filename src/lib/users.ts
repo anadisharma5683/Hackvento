@@ -1,7 +1,8 @@
 import { doc, setDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import { getFirestoreInstance } from "@/lib/firebase";
 
 export async function saveUser(user: any) {
+  const db = getFirestoreInstance();
   await setDoc(
     doc(db, "users", user.uid),
     {
