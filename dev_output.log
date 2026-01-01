@@ -1,0 +1,14 @@
+
+> academic-collab@0.1.0 dev
+> next dev
+
+⚠ Port 3000 is in use by process 27024, using available port 3001 instead.
+▲ Next.js 16.1.1 (Turbopack)
+- Local:         http://localhost:3001
+- Network:       http://10.32.174.26:3001
+- Environments: .env.local
+
+✓ Starting...
+⨯ Unable to acquire lock at C:\Users\Anadi Sharma\2k26 hackathons\Hackvento\academic-collab\.next\dev\lock, is another instance of next dev running?
+  Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+[?25h
